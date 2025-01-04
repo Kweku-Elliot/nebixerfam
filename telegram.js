@@ -1,11 +1,14 @@
-
-
-// Initialize your Telegram bot with token (replace 'YOUR_BOT_TOKEN' with your actual bot token)
-
 const { Telegraf } = require('telegraf');
 
-// Initialize your Telegram bot with token (replace 'YOUR_BOT_TOKEN' with your actual bot token)
-const bot = new Telegraf('8007238861:AAGgXxzKIyTcYduNJmvlYyVgQIPlLFiCqHM');
+// Read the bot token from environment variables
+const botToken = process.env.BOT_TOKEN;
+
+if (!botToken) {
+  throw new Error('Bot token is missing! Please set the BOT_TOKEN environment variable.');
+}
+
+// Initialize your Telegram bot
+const bot = new Telegraf(botToken);
 
 // Set Webhook URL (Replace with your Netlify site URL)
 bot.telegram.setWebhook('https://nebixerfarm.netlify.app/.netlify/functions/telegram')
@@ -23,7 +26,7 @@ bot.start((ctx) => {
   const chatId = ctx.message.chat.id;
   const messageId = ctx.message.message_id;
 
-  return  ctx.reply(
+  return ctx.reply(
     `👋 Join us now on this exciting journey!  
 
  Everything you do in  Telegram Matters!
